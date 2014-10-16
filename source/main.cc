@@ -223,7 +223,7 @@ int main (int argc, char ** argv)
   //  second_grid ();
   Triangulation<2,3> tria;
   if(AssimpInterface::generate_triangulation((argc == 2 ? argv[1] : "input_files/subdiv.ply"), 
-					     tria, -1, true, 1e-3)) {
+					     tria, -1, false, 1e-3)) {
     GridOut grid_out;
     std::ofstream out ("grid.msh");
     grid_out.write_msh (tria, out);
