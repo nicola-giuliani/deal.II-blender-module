@@ -20,8 +20,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8)
 FIND_PACKAGE(deal.II 8.0 QUIET
   HINTS ${deal.II_DIR} ${DEAL_II_DIR} ../ ../../ $ENV{DEAL_II_DIR}
   )
+FIND_PACKAGE(assimp HINTS ${ASSIMP_DIR} $ENV{ASSIMP_DIR})
+
 INCLUDE_DIRECTORIES(include/)
-INCLUDE_DIRECTORIES(/Library/deal.II-bundle/assimp/include)
+INCLUDE_DIRECTORIES(${ASSIMP_INCLUDE_DIRS})
 
 IF(NOT ${deal.II_FOUND})
   MESSAGE(FATAL_ERROR "\n"
@@ -31,6 +33,13 @@ IF(NOT ${deal.II_FOUND})
     )
 ENDIF()
 
+IF(NOT ${assimp_FOUND})
+  MESSAGE(FATAL_ERROR "\n"
+    "*** Could not locate assimp. ***\n\n"
+    "You may want to either pass a flag -DASSIMP_DIR=/path/to/assimp to cmake\n"
+    "or set an environment variable \"ASSIMP_DIR\" that contains this path."
+    )
+ENDIF()
 DEAL_II_INITIALIZE_CACHED_VARIABLES()
 PROJECT(${TARGET})
 DEAL_II_INVOKE_AUTOPILOT()
