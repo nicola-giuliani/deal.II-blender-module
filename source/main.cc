@@ -221,11 +221,22 @@ int main (int argc, char ** argv)
 {
   //  first_grid ();
   //  second_grid ();
+  AssertThrow(argc == 3, ExcMessage("Must specify exactly 2 arguments!"));
   Triangulation<2,3> tria;
-  if(AssimpInterface::generate_triangulation((argc == 2 ? argv[1] : "input_files/subdiv.ply"), 
-					     tria, -1, false, 1e-3)) {
+  if(AssimpInterface::generate_triangulation(argv[1], tria, -1, false, 1e-3)) {
     GridOut grid_out;
-    std::ofstream out ("grid.msh");
-    grid_out.write_msh (tria, out);
+    std::string fname(argv[2]);
+    std::ofstream out (argv[2]);
+    
+    AssertThrow(out, ExcIO());
+    if(fname.find("msh") !=  std::string::npos) {
+      grid_out.write_msh (tria, out);
+    } else if(fname.find("vtk") !=  std::string::npos) {
+      grid_out.write_vtk (tria, out);
+    } else if(fname.find("inp") != std::string::npos) {
+      grid_out.write_ucd (tria, out);
+    } else {
+      AssertThrow(false, ExcMessage("Unrecognized output format. vtk, msh or inp."));
+    }
   }
 }
