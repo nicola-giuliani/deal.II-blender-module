@@ -92,7 +92,7 @@ namespace AssimpInterface {
       
       // Check that we know what to do with this mesh, otherwise just
       // ignore it
-      if(mesh->mPrimitiveTypes != aiPrimitiveType_POLYGON) {
+      if(mesh->mPrimitiveTypes != aiPrimitiveType_POLYGON && mesh->mPrimitiveTypes != aiPrimitiveType_LINE) {
 	  cout << "Skipping incompatible mesh " << m 
 	       << "/" << scene->mNumMeshes << "." << endl;
 	  continue;
@@ -114,8 +114,21 @@ namespace AssimpInterface {
 
     
       for(unsigned int i=0; i<n_vertices; ++i) {
+  if(dim==1)
 	for(unsigned int d=0; d<spacedim; ++d) 
+  {
 	  vertices[i+v_offset][d] = mVertices[i][d];
+    if(d==1)
+    {
+      vertices[i+v_offset][d] = mVertices[i][2];
+    }
+  }
+  else
+  for(unsigned int d=0; d<spacedim; ++d) 
+  {
+    vertices[i+v_offset][d] = mVertices[i][d];
+  }
+
 	// cout << "Vertex " << i+v_offset << ": " 
 	//      <<  vertices[i+v_offset] << endl;
       }

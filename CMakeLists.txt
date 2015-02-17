@@ -44,5 +44,5 @@ DEAL_II_INITIALIZE_CACHED_VARIABLES()
 PROJECT(${TARGET})
 DEAL_II_INVOKE_AUTOPILOT()
 
-TARGET_LINK_LIBRARIES(${TARGET} /Library/deal.II-bundle/assimp/lib/libassimp.dylib)
+TARGET_LINK_LIBRARIES(${TARGET} /Applications/deal.II.app/Contents/Resources/opt/assimp-3.1.1/lib/libassimp.3.dylib)
 

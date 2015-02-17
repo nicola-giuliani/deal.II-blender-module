@@ -232,7 +232,7 @@ int main (int argc, char ** argv)
     if(fname.find("msh") !=  std::string::npos) {
       grid_out.write_msh (tria, out);
     } else if(fname.find("vtk") !=  std::string::npos) {
-      grid_out.write_vtk (tria, out);
+      //grid_out.write_vtk (tria, out);
     } else if(fname.find("inp") != std::string::npos) {
       grid_out.write_ucd (tria, out);
     } else {
