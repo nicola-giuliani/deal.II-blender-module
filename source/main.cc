@@ -193,7 +193,7 @@ void second_grid ()
   GridOut grid_out;
   grid_out.write_eps (triangulation, out);
 
-  std::cout << "Grid written to grid-2.eps" << std::endl;  
+  std::cout << "Grid written to grid-2.eps" << std::endl;
 
   // At this point, all objects created in this function will be destroyed in
   // reverse order. Unfortunately, we defined the boundary object after the
@@ -223,11 +223,11 @@ int main (int argc, char ** argv)
   //  second_grid ();
   AssertThrow(argc == 3, ExcMessage("Must specify exactly 2 arguments!"));
   Triangulation<2,3> tria;
-  if(AssimpInterface::generate_triangulation(argv[1], tria, -1, false, 1e-3)) {
+  if(AssimpInterface::generate_triangulation(argv[1], tria, -1, true, 1e-3)) {
     GridOut grid_out;
     std::string fname(argv[2]);
     std::ofstream out (argv[2]);
-    
+
     AssertThrow(out, ExcIO());
     if(fname.find("msh") !=  std::string::npos) {
       grid_out.write_msh (tria, out);
